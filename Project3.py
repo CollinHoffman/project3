@@ -1,12 +1,12 @@
 import datetime
 from datetime import date, time, timedelta
 import urllib.request
+import re
 import os
 
 logurl = "https://s3.amazonaws.com/tcmg476/http_access_log" 
 logfile = "locallog.log"
 
-#regex for later use ".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?)( HTTP.*\"|\") ([2-5]0[0-9]) .*"
 
 #downloads file if file is not already downloaded
 def getFile():
@@ -18,14 +18,17 @@ def getFile():
 
 #parses through file
 def parseFile():
-    openlog = open('locallog.log', 'w')
+    openlog = open("locallog.log", "w")
     
     totalrequests = 0
-    errorcount = 0
+    errors = []
 
     for line in openlog:
-        errorcount += 1
-        
+        totalrequests += 1
+        lineparts = re.split(".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?)( HTTP.*\"|\") ([2-5]0[0-9]) .*", openlog)
+    
+    print("Over the time period represented in the log there were ", totalrequest, "requests.")
+
 
 #main method
 def main():
