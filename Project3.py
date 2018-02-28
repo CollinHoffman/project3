@@ -21,7 +21,7 @@ def parseFile():
     errorcount = 0
     errors = []    
     monthcount = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0} #months of the year starting with january at 1
-    daycount = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0} #days of the week starting with 0 as monday
+    daycount = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0} #days of the week starting with 0 as monday
     failcount = 0
     redirectcount = 0
     successcount = 0
@@ -42,20 +42,20 @@ def parseFile():
             monthcount[dt.month] += 1
             
             #writes the line to proper month file
-            #if not os.path.exists(monthfile[dt.month]):
-            #    file = open(monthfile[dt.month], "w")
-            #    file.write(line)
-            #    file.close()
-            #else:
-            #    file = open(monthfile[dt.month], "a")
-            #    file.write(line)
-            #    file.close()
+            if not os.path.exists(monthfile[dt.month]):
+                file = open(monthfile[dt.month], "w")
+                file.write(line)
+                file.close()
+            else:
+                file = open(monthfile[dt.month], "a")
+                file.write(line)
+                file.close()
 
             #status code counters
             
             if lineparts[6] == '200':
                 successcount += 1
-            elif lineparts[6] == '300':
+            elif lineparts[6] == '302' or lineparts[6] == '304' or  lineparts[6] == '306':
                 redirectcount += 1
             else:
                 failcount += 1
@@ -76,11 +76,11 @@ def parseFile():
 
     #print the amount of logs for each day
     for d in daycount:
-        print("There were ", daycount[d], " requests on the day ", d, " over the period represented.")
+        print("There were ", daycount[d], " requests on weekday ", d, " over the period represented.")
 
     #print the amount of logs for each month
     for m in monthcount:
-        print("There were ", monthcount[m], " requests on the month ", m, " over the period represented.")
+        print("There were ", monthcount[m], " requests on month ", m, " over the period represented.")
 
     #finds the most request file
     mostrequested = "index.html"
@@ -99,7 +99,6 @@ def parseFile():
             leastcount = filecount[filer]
     print("The least requested file was ", leastrequested, "with ", leastcount, "requests.")
 
-    #closes all open files
     openlog.close()
 
 
