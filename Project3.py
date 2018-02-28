@@ -65,6 +65,7 @@ def parseFile():
                 filecount[lineparts[4]] += 1
             else:
                 filecount[lineparts[4]] = 1
+
         else:
             #regex did not work
             errorcount += 1
@@ -82,16 +83,16 @@ def parseFile():
         print("There were ", monthcount[m], " requests on the month ", m, " over the period represented.")
 
     #finds the most request file
-    mostrequested = None
-    mostcount = filecount[2]
+    mostrequested = "index.html"
+    mostcount = filecount["index.html"]
     for filer, count in filecount.items():
         if count > mostcount:
             mostrequested = filer
             mostcount = filecount[filer]
     print("The most requested file was ", mostrequested, "with ", mostcount, "requests.")
 
-    leastrequested = None
-    leastcount = filecount[2]
+    leastrequested = "index.html"
+    leastcount = filecount["index.html"]
     for filer, count in filecount.items():
         if count < leastcount:
             leastrequested = filer
