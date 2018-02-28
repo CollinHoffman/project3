@@ -42,9 +42,14 @@ def parseFile():
             monthcount[dt.month] += 1
             
             #writes the line to proper month file
-            file = open(monthfile[dt.month], "r+")
-            file.write(line)
-            file.close()
+            if not os.path.exists(monthfile[dt.month]):
+                file = open(monthfile[dt.month], "w")
+                file.write(line)
+                file.close()
+            else:
+                file = open(monthfile[dt.month], "a")
+                file.write(line)
+                file.close()
 
             #status code counters
             if lineparts[7] == '200':
@@ -93,9 +98,6 @@ def parseFile():
     print("The least requested file was ", leastrequested, "with ", leastcount, "requests.")
 
     #closes all open files
-    for i in range(11)
-        filename = "", i
-        newfile.close()
     openlog.close()
 
 
