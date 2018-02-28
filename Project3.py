@@ -57,7 +57,7 @@ def parseFile():
             errors.append(line)
     
     print("Over the time period represented in the log there were ", totalrequests, "requests and ", round(((errorcount/totalrequests)*100),2),"percent of the requests were faulty")
-    print("There were ", successcount, " successful request, ", failcount, " failed requests, and ", redirectcount, " redirected requests.")
+    print(round(((successcount/totalrequests)*100),2)," percent of requests were successful, ", round(((failcount/totalrequests)*100),2), " percent of requests failed, and ", round(((redirectcount/totalrequests)*100),2), " percent of requests were redirected.")
 
     #print the amount of logs for each day
     for d in daycount:
@@ -67,7 +67,20 @@ def parseFile():
     for m in monthcount:
         print("There were ", monthcount[m], " requests on the month ", m, " over the period represented.")
 
-    print(filecount)
+    #finds the most request file
+    mostrequested = "none"
+    mostcount = filecount[0]
+    for filer, count in filecount.items():
+        if count > mostcount:
+            mostrequested = filer
+    print("The most requested file was ", mostrequested, "with ", mostcount, "requests.")
+
+    leastrequested = "none"
+    leastcount = filecount[0]
+    for filer, count in filecount.items():
+        if count < leastcount:
+            leastrequested = filer
+    print("The least requested file was ", leastrequested, "with ", leastcount, "requests.")
 
 
     openlog.close()
