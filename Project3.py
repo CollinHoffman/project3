@@ -25,6 +25,7 @@ def parseFile():
     failcount = 0
     redirectcount = 0
     successcount = 0
+    filecount = {"index.html": 0}
 
     #splits the next read line into usable parts
     for line in openlog:
@@ -44,12 +45,18 @@ def parseFile():
                 redirectcount += 1
             else:
                 failcount += 1
+
+            #counts most called files
+            if lineparts[4] in filecount:
+                filecount[lineparts[4]] += 1
+            else:
+                filecount[lineparts[4]] = 1
         else:
             #regex did not work
             errorcount += 1
             errors.append(line)
     
-    print("Over the time period represented in the log there were ", totalrequests, "requests and ", round(((errorcount/total)*100),2),"percent of the requests were faulty")
+    print("Over the time period represented in the log there were ", totalrequests, "requests and ", round(((errorcount/totalrequests)*100),2),"percent of the requests were faulty")
     print("There were ", successcount, " successful request, ", failcount, " failed requests, and ", redirectcount, " redirected requests.")
 
     #print the amount of logs for each day
@@ -59,6 +66,8 @@ def parseFile():
     #print the amount of logs for each month
     for m in monthcount:
         print("There were ", monthcount[m], " requests on the month ", m, " over the period represented.")
+
+    print(filecount)
 
 
     openlog.close()
