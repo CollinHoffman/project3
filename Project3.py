@@ -18,16 +18,16 @@ def getFile():
 
 #parses through file
 def parseFile():
-    openlog = open("locallog.txt", "w")
+    openlog = open("locallog.txt")
     
     totalrequests = 0
     errors = []
 
     for line in openlog:
         totalrequests += 1
-        lineparts = re.split(".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?)( HTTP.*\"|\") ([2-5]0[0-9]) .*", openlog)
+        #lineparts = re.split(".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?)( HTTP.*\"|\") ([2-5]0[0-9]) .*", openlog)
     
-    print("Over the time period represented in the log there were ", totalrequest, "requests.")
+    print("Over the time period represented in the log there were ", totalrequests, "requests.")
 
 
 #main method
