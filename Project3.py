@@ -11,11 +11,10 @@ def getFile():
     if not os.path.exists(logfile):
         print("Downloading log file. Please wait.")
         urllib.request.urlretrieve(logurl, "locallog.txt")
-    else:
-        print("File is downloaded, parsing now.")
 
 #parses through file
 def parseFile():
+    print("File is downloaded, parsing now.")
     openlog = open("locallog.txt")
     
     totalrequests = 0
@@ -38,7 +37,7 @@ def parseFile():
             monthcount[dt.month] += 1
 
             #code counters
-            if linparts[7] == '200':
+            if lineparts[7] == '200':
                 successcount += 1
             elif lineparts[7] == '300':
                 redirectcount += 1
