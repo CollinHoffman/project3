@@ -57,7 +57,6 @@ def parseFile():
             #counts most called files
             if lineparts[4] in filecount:
                 filecount[lineparts[4]] += 1
-                print(filecount)
             else:
                 filecount[lineparts[4]] = 1
         else:
