@@ -1,5 +1,4 @@
-import datetime
-from datetime import date, time, timedelta
+from datetime import datetime, date, time, timedelta
 import urllib.request
 import re
 import os
@@ -29,11 +28,11 @@ def parseFile():
         lineparts = re.split(".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?)( HTTP.*\"|\") ([2-5]0[0-9]) .*", line)
         if len(lineparts) >= 7:
             #regex worked
-            print(lineparts)
+            dt = datetime.strptime(lineparts[1], "%d/%b/%Y")
+            print(dt)
         else:
             #regex did not work
             errorcount += 1
-            print("Error parsing line: Line added to errors list")
             errors.append(line)
     
     print("Over the time period represented in the log there were ", totalrequests, "requests.")
