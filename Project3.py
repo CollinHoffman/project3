@@ -4,7 +4,7 @@ import urllib.request
 import os
 
 logurl = "https://s3.amazonaws.com/tcmg476/http_access_log" 
-logfile = "log.txt"
+logfile = "locallog.log"
 
 #regex for later use ".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?)( HTTP.*\"|\") ([2-5]0[0-9]) .*"
 
@@ -12,10 +12,10 @@ logfile = "log.txt"
 def getFile():
     if not os.path.exists(logfile):
         print("Downloading log file. Please wait.")
-        urllib.request.urlretrieve(logurl, "log.txt")
+        urllib.request.urlretrieve(logurl, "locallog.log")
     #if file exists, the file is opened.
     else:
-        file=open("log.txt")
+        file=open("locallog.log")
 
 
 def parseFile():
