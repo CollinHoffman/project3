@@ -27,6 +27,9 @@ def parseFile():
     successcount = 0
     filecount = {"index.html": 0}
 
+    #dictionary of month file names
+    monthfile = {1: "Jan.txt", 2: "Feb.txt", 3: "Mar.txt", 4: "Apr.txt", 5: "May.txt", 6: "Jun.txt", 7: "Jul.txt", 8: "Aug.txt", 9: "Sep.txt", 10: "Oct.txt", 11: "Nov.txt", 12: "Dec.txt"}
+
     #splits the next read line into usable parts
     for line in openlog:
         totalrequests += 1
@@ -37,6 +40,11 @@ def parseFile():
             dt = datetime.strptime(lineparts[1], "%d/%b/%Y")
             daycount[dt.weekday()] += 1
             monthcount[dt.month] += 1
+            
+            #writes the line to proper month file
+            file = open(monthfile[dt.month], "r+")
+            file.write(line)
+            file.close()
 
             #status code counters
             if lineparts[7] == '200':
@@ -49,6 +57,7 @@ def parseFile():
             #counts most called files
             if lineparts[4] in filecount:
                 filecount[lineparts[4]] += 1
+                print(filecount)
             else:
                 filecount[lineparts[4]] = 1
         else:
@@ -68,21 +77,26 @@ def parseFile():
         print("There were ", monthcount[m], " requests on the month ", m, " over the period represented.")
 
     #finds the most request file
-    mostrequested = "none"
-    mostcount = filecount[0]
+    mostrequested = None
+    mostcount = filecount[2]
     for filer, count in filecount.items():
         if count > mostcount:
             mostrequested = filer
+            mostcount = filecount[filer]
     print("The most requested file was ", mostrequested, "with ", mostcount, "requests.")
 
-    leastrequested = "none"
-    leastcount = filecount[0]
+    leastrequested = None
+    leastcount = filecount[2]
     for filer, count in filecount.items():
         if count < leastcount:
             leastrequested = filer
+            leastcount = filecount[filer]
     print("The least requested file was ", leastrequested, "with ", leastcount, "requests.")
 
-
+    #closes all open files
+    for i in range(11)
+        filename = "", i
+        newfile.close()
     openlog.close()
 
 
